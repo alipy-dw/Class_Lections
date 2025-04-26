@@ -1,0 +1,35 @@
+ubuntu:
+    sudo apt install postgresql - для устоновляние СУБД
+mac:
+    brew install postresgl
+
+Войти в psql от имени postgres
+    sudo -u postgres psql
+
+Создание своего пользователя и БД:
+    CREATE USER hello WITH PASSWORD '1'; - создатб пользователя hello с паролем "1"
+    ALTER ROLE hello WITH SUPERUSER CREATEROLE CREATEDB REPLICATION BYPASSRLS; - выдаем пользователю hello привилегии
+    CREATE DATABASE hello WITH OWNER hello; - создаем БД с пользователем hello
+
+
+Комманды:
+    \с - показывает к какой БД мы подключены и через какого пользователя
+    \с "название БД" - поключаем к этой БД
+    \l - список всех БД
+    \du - показывает список юзеров в текущей БД
+    \dt - показывает список таблиц в текущей БД
+    \d+ - показывает подробную инфу о таблицах
+    \d+ "навзвание таблицы" - показывает подробную информацию о таблице
+    \q - выход из psql
+
+Сырые запросы: 
+    CREATE DATABASE "name of bd" - создание БД
+    CREATE TABLE "name of table" (
+        column1 "data_type1"
+        column2 "data_type2"
+        ...
+    ); (обезательно ";" для сырых запросах)
+    создание таблицы с полями и типом данных
+
+    DROP DATABASE "name of db"; - удаление БД
+    DROP TABLE "name of table"; - удаление таблицы
