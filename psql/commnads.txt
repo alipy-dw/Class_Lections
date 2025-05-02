@@ -7,9 +7,11 @@ mac:
     sudo -u postgres psql
 
 Создание своего пользователя и БД:
-    CREATE USER hello WITH PASSWORD '1'; - создатб пользователя hello с паролем "1"
+    CREATE USER hello WITH PASSWORD '1'; - создать пользователя hello с паролем "1"
+
     ALTER ROLE hello WITH SUPERUSER CREATEROLE CREATEDB REPLICATION BYPASSRLS; - выдаем пользователю hello привилегии
-    CREATE DATABASE hello WITH OWNER hello; - создаем БД с пользователем hello
+
+    CREATE DATABASE hello WITH OWNER hello; - создаем БД с владельцем hello
 
 
 Комманды:
@@ -32,4 +34,18 @@ mac:
     создание таблицы с полями и типом данных
 
     DROP DATABASE "name of db"; - удаление БД
+
     DROP TABLE "name of table"; - удаление таблицы
+
+    INSERT INTO "навзвание таблицы" VALUES - заполнение таблицы данными
+    (id, title, date), - заполнение таблицы данными
+    (id2, title2, date2): - заполнение таблицы данными
+
+    INSERT INTO book (title) VALUES ('book1'), ('book2');
+    заполнение в таблице поля title значениями book1 и book2
+
+    SELECT name_of_column FROM name_of_table;
+    показывает содержимое(записи) таблицы
+
+    DELETE FROM name_of_table;
+    очищает таблицу
