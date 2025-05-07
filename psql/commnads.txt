@@ -49,3 +49,81 @@ mac:
 
     DELETE FROM name_of_table;
     очищает таблицу
+
+------------------------------------------------------------------
+
+    CREATE TABLE customer (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE product (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(50),
+    price DECIMAL
+);
+
+CREATE TABLE cart (
+    id SERIAL PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+
+    CONSTRAINT cart_customer FOREIGN KEY (customer_id) REFERENCES customer (id), 
+    CONSTRAINT cart_product FOREIGN KEY (product_id) REFERENCES product (id)
+);
+
+
+INSERT INTO customer (name) VALUES ('customer 1'), ('customer 2'), ('customer 3'); 
+
+INSERT INTO product (title, price) VALUES
+('product 1', 340),
+('product 2', 503),
+('product 3', 470),
+('product 4', 236),
+('product 5', 452);
+
+INSERT INTO cart (customer_id, product_id) VALUES
+(1, 1), (1, 2), (1, 4),
+(2, 3),
+(3, 4), (3, 5);
+
+=========================Агрегатные функции=====================
+
+SUM - Функция, которая выводит сумму всех записей в сгрупированном поле
+
+SELECT customer.name, SUM(product.price) AS total_price 
+FROM product
+JOIN cart ON product.id = cart.product_id JOIN customer ON customer.id = cart.customer_id 
+GROUP BY (customer.name);
+
+----------------------------------------------------------------
+
+ARRAY_AGG - объединяет записи сгрупированной поля в массив
+
+SELECT blogger.name, ARRAY_AGG(post.body) AS posts FROM blogger JOIN post ON blogger.id = post.blogger_id GROUP BY blogger.name;
+
+----------------------------------------------------------------
+
+MIN, MAX - высчитывают минимальное и максимальное значение среди записей в сгруппированном поле
+
+SELECT blogger.name, MIN(post.created_at) AS first, MAX(post.created_at) AS last
+FROM blogger JOIN post ON blogger.id = post.blogger_id
+GROUP BY (blogger.name);
+--    name    |   first    |    last    
+-- -----------+------------+------------
+--  blogger 2 | 2013-05-10 | 2022-06-23
+--  blogger 1 | 2020-08-01 | 2021-09-30
+--  blogger 3 | 2022-08-15 | 2022-08-15
+
+------------------------------------------------------------------
+
+COUNT - считает кол-во записей в сгруппированном поле
+
+SELECT blogger.name, COUNT(post.id) AS posts_count
+FROM blogger JOIN post ON blogger.id = post.blogger_id
+GROUP BY (blogger.name);
+--    name    | posts_count 
+-- -----------+-------------
+--  blogger 2 |           2
+--  blogger 1 |           3
+--  blogger 3 |           1

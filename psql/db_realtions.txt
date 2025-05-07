@@ -65,3 +65,6 @@ CREATE TABLE dev_proj (
     CONSTRAINT fk_dev_dev_proj FOREIGN KEY (developer_id) REFERENCES developer (id),
     CONSTRAINT fk_proj_dev_proj FOREIGN KEY (project_id) REFERENCES project (id)
 );
+
+=================================JOIN=======================================
+
