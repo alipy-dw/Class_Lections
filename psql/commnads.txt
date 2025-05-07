@@ -127,3 +127,37 @@ GROUP BY (blogger.name);
 --  blogger 2 |           2
 --  blogger 1 |           3
 --  blogger 3 |           1
+
+==============================ALTER TABLE==========================================
+
+katana, [7/5/25 20:27]
+# Изменение таблиц
+ALTER TABLE name_of_table ADD COLUMN col_name type constraint;
+-- добавляет новую колонку в таблицу
+
+ALTER TABLE name_of_table DROP COLUMN col_name;
+-- удаляет колонку из таблицы
+
+ALTER TABLE name_of_table ADD CONSTRAINT constr_name constraint;
+-- добавление ограничения на поле
+ALTER TABLE test ADD CONSTRAINT col_unq UNIQUE (col);
+-- test - название таблицы
+-- col - название поля
+ALTER TABLE test ADD CONSTRAINT fk_test_test2 FOREIGN KEY (test2_id) REFERENCES test2 (id);
+
+ALTER TABLE name_of_table RENAME COLUMN old_name TO new_name;
+-- переименовать поле
+
+ALTER TABLE name_of_table ALTER COLUMN col_name SET DATA TYPE new_data_type;
+
+ALTER TABLE name_of_table ALTER COLUMN col_name TYPE new_data_type;
+-- изменение типа данных у поля
+
+# Import / export баз данных
+
+write from file to db
+psql db_name < file.sql
+# db_name должна существовать в postgresql
+
+write from db to file
+pg_dump db_name > file.sql
