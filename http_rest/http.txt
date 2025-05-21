@@ -1,0 +1,43 @@
+Протоколы:
+HTTP - это протокол, для передачи данных 
+HTTPS - более защищенная версия HTTP (появилась шифрование и SSL сертификаты)
+
+HTTP - hyper text transfer protocol
+HTTP Methods:
+GET - получения данных 
+POST - отправка данных на создание 
+PUT - обновление или создание нового 
+PATCH - частичное обновление 
+DELETE - удаление   
+HEAD - получения Headers
+OPTIONS - получения списка допустимых методов для этой url
+TRACE - трассировка(проверка связи)
+
+HTTP status code:
+1хх - информационные 
+2хх - успешные
+3хх - перенаправление 
+4хх - ошибка на стороне клиента (front-end)
+5хх - ошибка на стороне сервера (back-end)
+
+HTTPS - hyper text transfer protocol security
+
+URL - uniform resource locator
+https://www.youtube.com/
+
+DOMAIN - уникальное название
+(www.google.com)
+
+URI - кусочек URL
+(/search)
+
+Query parameters - пары (ключ-значение)
+после?
+(?q=hello)
+
+
+HOST - адрес на который мы отправляем запрос либо домен
+(ip address / domain)
+
+PORT - номер сервиса в сервере (http-server:8000), (postgresql:5432),
+(backend:8000), (fronted:3000)
