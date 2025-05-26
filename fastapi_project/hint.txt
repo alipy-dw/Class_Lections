@@ -1,0 +1,2 @@
+uvicorn main:app - запуск API
+uvicorn main:app --host 0.0.0.0 --port 80 - команда по которой запускается апи с хостом и портом 8000
