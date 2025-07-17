@@ -1,7 +1,0 @@
-djangorestframework - основная библиотека
-djangorestframework-simplejwk - библиотека для работ с JWT токенами, для регистрации
-psycopg2-binary - для работ с PostGresSQL
-pillow - для работ с картинками
-python-decouple - для скрытие данных
-drf_yasg - для докумментации с Fronted
-django-filter - для фирльтрации сущности, продукты например 
