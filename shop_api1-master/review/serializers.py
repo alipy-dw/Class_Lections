@@ -30,7 +30,7 @@ class FavoriteSerializer(ModelSerializer):
         model = Favorite
         exclude = ('user',)
 
-    def validate(self, attrs):
+    def validate(self, attrs):  
         super().validate(attrs)
         attrs['user'] = self.context['request'].user
         return attrs
