@@ -5,3 +5,5 @@ pillow # работа с картинками
 python-decouple  # сокрытие данных
 drf-yasg # документация для front
 django-filter # фильтрация
+redis
+celery

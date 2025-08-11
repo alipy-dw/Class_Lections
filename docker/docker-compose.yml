@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:latest
+    networks:
+      - redisnet
+    mem_limit: 250m
+    cpus: 0.5  # Minimal CPU limit
+
+  pgdb:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    container_name: pgdb_Football
+    environment:
+      POSTGRES_INITDB_ARGS: "-A md5"
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data
+    networks:
+      - pgdbnet
+    mem_limit: 550m
+    cpus: 1.0  # Minimal CPU limit
+
+  django:
+    container_name: django
+    build: .
+    command: /code/entrypoint.sh
+    depends_on:
+      - pgdb_Football
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+    networks:
+      - webnet
+      - redisnet
+      - pgdbnet
+    links:
+      - redis
+    mem_limit: 2050m
+    cpus: 1.0  # Minimal CPU limit
+
+  celery_worker_fl:
+    build: .
+    hostname: celery_worker_fl
+    command: celery -A celery_app worker -l info
+    depends_on:
+      - pgdb_Football
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+    networks:
+      - webnet
+      - redisnet
+      - pgdbnet
+    links:
+      - redis
+    mem_limit: 250m
+    cpus: 0.5  # Minimal CPU limit
+
+
+volumes:
+  pgdbdata: { }

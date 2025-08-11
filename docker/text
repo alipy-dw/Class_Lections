@@ -1,0 +1,93 @@
+'============================04.08=================================='
+
+Docker - это инструмент который позволяет "упоковать" наше приложение в контейнере вместе со всеми зависемостями(библиотеки, настройки, окружение)
+
+image(образ) - это шаблон операционной система с приложением
+например: python:3.11 - slim, postgres:15, myapp:v1
+
+container - это запущенный экземпляр image(образа) то есть образ - рецепт, а контейнер - готовое блюдо
+
+Пример запуска контейнера из образа myapp:v1
+docker run -d -p 8000:8000 myapp:v1
+
+'----------------------------------------'
+
+docker compose - инструмент для запуска нескольких нескольких контейнеров одновременно по инструкции в yml файле docker-compose.yml
+
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+
+volumes:
+    pgdata
+
+команнды для запуска контейнеров
+docker-compose up --build -d
+docker copmose up --build -d
+
+команнда для просмотра запущенных контейнеров 
+sudo docker ps
+
+sudo docker system prum -a - удаляет все image и сontainer
+
+'-------------------------------'
+
+volume - способ сохранение данных за пределами контейнера(что бы не потерять их)
+
+Место нахождение volume pgdata:
+docker volume inspect pgdata
+
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+    pgdata
+
+'-----------------------------------'
+
+Dockerfile - файл в котором написываем как собрать образ Docker для python-проекта (например Django)
+
+# Dockerfile
+
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /shop_api
+
+COPY requirements.txt .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+COPY . .
+
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+docker compose.yml
+Dockerfile
+entrypoint.sh
+.dockerignore
+
+docker exec -it app sh
+заходим контейнер бекенда
